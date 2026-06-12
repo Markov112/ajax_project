@@ -1,3 +1,4 @@
+/* Perus sivun asetukset */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -8,6 +9,7 @@ body {
   justify-content: center;
 }
 
+/* Pääsisältö keskelle sivua */
 .container {
   width: 90%;
   max-width: 1100px;
@@ -15,16 +17,19 @@ body {
   padding: 30px 0;
 }
 
+/* Otsikko */
 h1 {
   font-size: 2.5rem;
   margin-bottom: 5px;
 }
 
+/* Alaotsikko */
 .subtitle {
   color: #aaa;
   margin-bottom: 20px;
 }
 
+/* Hakukentän ja napin layout */
 .search-box {
   display: flex;
   justify-content: center;
@@ -32,6 +37,7 @@ h1 {
   margin-bottom: 30px;
 }
 
+/* Hakukenttä */
 input {
   padding: 12px;
   width: 280px;
@@ -42,6 +48,7 @@ input {
   outline: none;
 }
 
+/* Hakunappi */
 button {
   padding: 12px 18px;
   border-radius: 10px;
@@ -52,12 +59,14 @@ button {
   font-weight: bold;
 }
 
+/* Elokuvien grid-asettelu */
 #results {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
 }
 
+/* Yksittäinen elokuvakortti */
 .card {
   background: rgba(255,255,255,0.05);
   padding: 10px;
@@ -67,10 +76,12 @@ button {
   border: 1px solid rgba(255,255,255,0.1);
 }
 
+/* Hover-efekti kortille */
 .card:hover {
   transform: translateY(-8px);
 }
 
+/* Elokuvan kuva */
 .card img {
   width: 100%;
   border-radius: 10px;
@@ -78,11 +89,13 @@ button {
   object-fit: cover;
 }
 
+/* Elokuvan nimi */
 .card h3 {
   font-size: 16px;
   margin: 10px 0 5px;
 }
 
+/* Vuosi */
 .card p {
   color: #bbb;
   margin: 0;
