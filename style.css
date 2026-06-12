@@ -1,0 +1,23 @@
+body {
+  font-family: Arial;
+  margin: 20px;
+}
+
+#products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.card img {
+  max-height: 120px;
+  object-fit: contain;
+}
