@@ -3,24 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>Movie Explorer</title>
+
+  <!-- Linkki CSS-tyyleihin -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
 
+    <!-- Sivun otsikko -->
     <h1>🎬 Movie Explorer</h1>
+
+    <!-- Pieni kuvausteksti -->
     <p class="subtitle">Popular movies & search</p>
 
+    <!-- Hakukenttä ja nappi -->
     <div class="search-box">
       <input type="text" id="search" placeholder="Search movie...">
       <button id="btn">Search</button>
     </div>
 
+    <!-- Tänne renderöidään elokuvat JavaScriptillä -->
     <div id="results"></div>
 
   </div>
 
+  <!-- JavaScript tiedosto -->
   <script src="script.js"></script>
 </body>
 </html>
