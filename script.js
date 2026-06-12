@@ -5,18 +5,14 @@ const searchInput = document.getElementById("search");
 const resultsDiv = document.getElementById("results");
 const button = document.getElementById("btn");
 
-// ------------------------------
-// EVENT LISTENERS
-// ------------------------------
+// eventit
 button.addEventListener("click", searchMovies);
 
 searchInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") searchMovies();
 });
 
-// ------------------------------
-// LOAD POPULAR MOVIES ON START
-// ------------------------------
+// 🔥 AUTOMAATTINEN ETUSIVU (POPULAR MOVIES)
 window.addEventListener("load", loadPopularMovies);
 
 async function loadPopularMovies() {
@@ -26,22 +22,15 @@ async function loadPopularMovies() {
     const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
     const data = await res.json();
 
-    if (!data.results) {
-      resultsDiv.innerHTML = "<p>No data found</p>";
-      return;
-    }
-
     renderMovies(data.results);
 
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     resultsDiv.innerHTML = "<p>Error loading movies</p>";
   }
 }
 
-// ------------------------------
-// SEARCH MOVIES
-// ------------------------------
+// 🔍 HAKU
 async function searchMovies() {
   const query = searchInput.value.trim();
 
@@ -53,26 +42,26 @@ async function searchMovies() {
   try {
     resultsDiv.innerHTML = "<p>🔍 Searching...</p>";
 
-    const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`;
-    const res = await fetch(url);
+    const res = await fetch(
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+    );
+
     const data = await res.json();
 
     if (!data.results || data.results.length === 0) {
-      resultsDiv.innerHTML = "<p>No movies found.</p>";
+      resultsDiv.innerHTML = "<p>No movies found</p>";
       return;
     }
 
     renderMovies(data.results);
 
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     resultsDiv.innerHTML = "<p>Error fetching data</p>";
   }
 }
 
-// ------------------------------
-// RENDER MOVIES
-// ------------------------------
+// 🎬 RENDER
 function renderMovies(movies) {
   resultsDiv.innerHTML = "";
 
@@ -89,7 +78,7 @@ function renderMovies(movies) {
       : "Unknown";
 
     card.innerHTML = `
-      <img src="${poster}" alt="poster">
+      <img src="${poster}">
       <h3>${movie.title}</h3>
       <p>${year}</p>
     `;
@@ -97,3 +86,4 @@ function renderMovies(movies) {
     resultsDiv.appendChild(card);
   });
 }
+
