@@ -1,77 +1,30 @@
-// API base URL
-const BASE_URL = "https://fakestoreapi.com/products";
+const API_KEY = "YOUR_KEY";
+const searchInput = document.getElementById("search");
+const resultsDiv = document.getElementById("results");
 
-const productsDiv = document.getElementById("products");
-const categorySelect = document.getElementById("categorySelect");
-const searchInput = document.getElementById("searchInput");
+document.getElementById("btn").addEventListener("click", searchMovies);
 
-let allProducts = [];
+async function searchMovies() {
+  const query = searchInput.value;
 
-// Fetch all products
-async function fetchProducts() {
-  try {
-    const res = await fetch(BASE_URL);
-    const data = await res.json();
-    allProducts = data;
-    renderProducts(data);
-    extractCategories(data);
-  } catch (err) {
-    console.error("Error fetching products:", err);
-  }
+  const res = await fetch(`https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`);
+  const data = await res.json();
+
+  renderMovies(data.Search);
 }
 
-// Render products to UI
-function renderProducts(products) {
-  productsDiv.innerHTML = "";
+function renderMovies(movies) {
+  resultsDiv.innerHTML = "";
 
-  products.forEach(product => {
-    const card = document.createElement("div");
-    card.classList.add("card");
+  movies.forEach(movie => {
+    const div = document.createElement("div");
 
-    card.innerHTML = `
-      <img src="${product.image}" width="100">
-      <h3>${product.title}</h3>
-      <p>${product.price} €</p>
+    div.innerHTML = `
+      <img src="${movie.Poster}" width="120">
+      <h3>${movie.Title}</h3>
+      <p>${movie.Year}</p>
     `;
 
-    productsDiv.appendChild(card);
+    resultsDiv.appendChild(div);
   });
 }
-
-// Create category dropdown dynamically
-function extractCategories(products) {
-  const categories = [...new Set(products.map(p => p.category))];
-
-  categories.forEach(cat => {
-    const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat;
-    categorySelect.appendChild(option);
-  });
-}
-
-// Filter by category
-categorySelect.addEventListener("change", () => {
-  const value = categorySelect.value;
-
-  if (value === "all") {
-    renderProducts(allProducts);
-  } else {
-    const filtered = allProducts.filter(p => p.category === value);
-    renderProducts(filtered);
-  }
-});
-
-// Search filter
-searchInput.addEventListener("input", () => {
-  const term = searchInput.value.toLowerCase();
-
-  const filtered = allProducts.filter(p =>
-    p.title.toLowerCase().includes(term)
-  );
-
-  renderProducts(filtered);
-});
-
-// Init app
-fetchProducts();
