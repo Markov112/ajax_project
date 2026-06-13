@@ -1,34 +1,27 @@
-// TMDB API avain (sinun oma key)
+// TMDB avain josta leffat
 const API_KEY = "6fb2bc7e1fc053410f21c3e3b0627ab0";
 
 // API:n perusosoite
 const BASE_URL = "https://api.themoviedb.org/3";
 
-// Haetaan HTML-elementit
+// html elementit
 const searchInput = document.getElementById("search");
 const resultsDiv = document.getElementById("results");
 const button = document.getElementById("btn");
 
-// ---------------------------
-// EVENT LISTENERS
-// ---------------------------
 
-// Klikkaus hakee elokuvia
+// Klikillä hakee elokuvia
 button.addEventListener("click", searchMovies);
 
-// Enter-näppäin tekee haun
+// Enterillä haku
 searchInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") searchMovies();
 });
 
-// ---------------------------
-// SIVUN LATAUS: POPULAR MOVIES
-// ---------------------------
-
-// Kun sivu aukeaa → näytetään suositut elokuvat
+// sivun auetessa suosittuja elokuvia alotussivulle
 window.addEventListener("load", loadPopularMovies);
 
-// Haetaan suosituimmat elokuvat API:sta
+// hakee suositut apista
 async function loadPopularMovies() {
   try {
     resultsDiv.innerHTML = "<p>🎬 Loading popular movies...</p>";
@@ -36,7 +29,7 @@ async function loadPopularMovies() {
     const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
     const data = await res.json();
 
-    // Renderöidään elokuvat ruudulle
+    // rendaa elokuvat
     renderMovies(data.results);
 
   } catch (err) {
@@ -45,14 +38,11 @@ async function loadPopularMovies() {
   }
 }
 
-// ---------------------------
-// HAKUTOIMINTO
-// ---------------------------
 
 async function searchMovies() {
   const query = searchInput.value.trim();
 
-  // Jos hakukenttä tyhjä → näytä popular uudestaan
+  // hakukenttä tyhjä, näytä popular uudestaan
   if (!query) {
     loadPopularMovies();
     return;
@@ -73,7 +63,7 @@ async function searchMovies() {
       return;
     }
 
-    // Näytetään tulokset
+    // näyttää tulokset
     renderMovies(data.results);
 
   } catch (err) {
@@ -82,9 +72,6 @@ async function searchMovies() {
   }
 }
 
-// ---------------------------
-// ELOKUVIEN RENDERÖINTI
-// ---------------------------
 
 function renderMovies(movies) {
   // Tyhjennetään vanhat tulokset
@@ -97,7 +84,7 @@ function renderMovies(movies) {
     const card = document.createElement("div");
     card.classList.add("card");
 
-    // Elokuvan kuva (tai placeholder jos puuttuu)
+    // Elokuvan kuva 
     const poster = movie.poster_path
       ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
       : "https://via.placeholder.com/300x450?text=No+Image";
